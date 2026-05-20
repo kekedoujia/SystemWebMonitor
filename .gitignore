@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Local-only / secrets
+# This helper embeds the sudo password and MUST NOT be committed.
+enable_cpu_power.sh
+
+# Logs / temp
+*.log
+.DS_Store
