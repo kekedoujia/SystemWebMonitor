@@ -55,11 +55,34 @@ h2 {
   font-size: 14px;
 }
 
+.topbar-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.lang-toggle {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: color 120ms ease, border-color 120ms ease;
+}
+.lang-toggle:hover {
+  color: var(--text);
+  border-color: var(--cyan);
+}
+
 .status {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  min-width: 116px;
+  min-width: 90px;
   justify-content: flex-end;
   color: var(--muted);
   font-size: 14px;

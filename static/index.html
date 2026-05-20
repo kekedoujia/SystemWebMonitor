@@ -9,30 +9,33 @@
   <body>
     <header class="topbar">
       <div>
-        <h1>System Web Monitor</h1>
-        <p id="subtitle">实时 GPU + CPU 监控 · nvidia-smi + Intel RAPL</p>
+        <h1 data-i18n="title">System Web Monitor</h1>
+        <p id="subtitle" data-i18n="subtitle">实时 GPU + CPU 监控 · nvidia-smi + Intel RAPL</p>
       </div>
-      <div class="status">
-        <span id="statusDot" class="dot"></span>
-        <span id="statusText">连接中</span>
+      <div class="topbar-right">
+        <button id="langToggle" class="lang-toggle" type="button" aria-label="Toggle language">EN</button>
+        <div class="status">
+          <span id="statusDot" class="dot"></span>
+          <span id="statusText" data-i18n="status_connecting">连接中</span>
+        </div>
       </div>
     </header>
 
     <main>
       <section class="panel energy-panel">
         <div class="panel-head">
-          <h2>能耗</h2>
-          <span id="energyStatus" class="muted">采样中…</span>
+          <h2 data-i18n="energy_panel">能耗</h2>
+          <span id="energyStatus" class="muted" data-i18n="energy_sampling">采样中…</span>
         </div>
         <div class="energy-body">
           <div class="energy-stats">
             <div class="energy-stat">
-              <div class="label">启动时间</div>
+              <div class="label" data-i18n="energy_start">启动时间</div>
               <div class="value" id="energyStart">—</div>
               <div class="subvalue" id="energyUptime">—</div>
             </div>
             <div class="energy-stat">
-              <div class="label">累计耗电 (CPU + GPU)</div>
+              <div class="label" data-i18n="energy_total">累计耗电 (CPU + GPU)</div>
               <div class="value" id="energyTotal">— kWh</div>
               <div class="subvalue" id="energyNow">— W</div>
               <div class="subvalue" id="energyBreakdown">CPU — W · GPU — W</div>
@@ -40,7 +43,7 @@
           </div>
           <div class="energy-chart-wrap">
             <div class="energy-chart-head">
-              <span>按小时耗电 (kWh)</span>
+              <span data-i18n="energy_chart_title">按小时耗电 (kWh, 最近 24h)</span>
               <span class="muted" id="energyChartRange">—</span>
             </div>
             <svg id="energyChart" class="energy-chart" preserveAspectRatio="none"></svg>
@@ -54,21 +57,21 @@
 
       <section class="panel">
         <div class="panel-head">
-          <h2>进程</h2>
-          <span id="processCount" class="muted">0 个</span>
+          <h2 data-i18n="proc_panel">进程</h2>
+          <span id="processCount" class="muted">0</span>
         </div>
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
-                <th>GPU</th>
-                <th>PID</th>
-                <th>进程名</th>
-                <th>显存</th>
+                <th data-i18n="proc_col_gpu">GPU</th>
+                <th data-i18n="proc_col_pid">PID</th>
+                <th data-i18n="proc_col_name">进程名</th>
+                <th data-i18n="proc_col_mem">显存</th>
               </tr>
             </thead>
             <tbody id="processRows">
-              <tr><td colspan="4" class="empty">暂无计算进程</td></tr>
+              <tr><td colspan="4" class="empty" data-i18n="proc_empty">暂无计算进程</td></tr>
             </tbody>
           </table>
         </div>

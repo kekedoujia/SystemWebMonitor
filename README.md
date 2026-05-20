@@ -12,16 +12,39 @@
 
 ## 启动
 
+### 临时运行
+
 ```bash
-./start.sh                        # 默认 0.0.0.0:8765
-PORT=9000 ./start.sh              # 换端口
-python3 app.py --interval 0.5     # 改采样间隔(默认 1s)
+./start.sh                                  # 默认 0.0.0.0:8765
+PORT=9000 ./start.sh                        # 换端口
+HOST=127.0.0.1 PORT=9000 ./start.sh         # 改绑定地址 + 端口
+python3 app.py --interval 0.5               # 改采样间隔(默认 1s)
 ```
 
-打开浏览器访问:
+### 装成 systemd 服务(开机自启)
+
+```bash
+bash install-service.sh                     # 会用 sudo 写入 unit 并启动
+# 自定义端口 / 间隔:
+PORT=9000 INTERVAL=2.0 bash install-service.sh
+# 卸载:
+bash uninstall-service.sh
+```
+
+unit 安装到 `/etc/systemd/system/system-web-monitor.service`,运行用户取自当前用户(若用 `sudo` 运行脚本则取 `$SUDO_USER`)。开了 `NoNewPrivileges` / `ProtectSystem=full` / `ProtectHome=read-only` 等轻量加固,不影响 `nvidia-smi` 和 RAPL sysfs 读取。
+
+常用命令:
+```bash
+sudo systemctl status system-web-monitor
+sudo systemctl restart system-web-monitor
+sudo journalctl -u system-web-monitor -f
+```
+
+### 访问
 
 - 本机:`http://127.0.0.1:8765`
 - 局域网:`http://<本机 IP>:8765`
+- 右上角 `EN` / `中` 按钮切换中英文,选择持久化在浏览器 localStorage。
 
 ## CPU 功耗读取(可选)
 
