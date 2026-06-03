@@ -4,7 +4,6 @@
 # Usage:
 #   bash uninstall-service.sh         # interactive sudo
 #   sudo bash uninstall-service.sh
-
 set -euo pipefail
 
 SERVICE_NAME="${SERVICE_NAME:-system-web-monitor}"

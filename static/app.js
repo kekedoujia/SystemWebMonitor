@@ -540,7 +540,7 @@ function render(snapshot) {
 
 async function tick() {
   try {
-    const res = await fetch("/api/snapshot", { cache: "no-store" });
+    const res = await fetch("api/snapshot", { cache: "no-store" });
     const data = await res.json();
     if (!data.ok) throw new Error(data.error || "snapshot failed");
     render(data);

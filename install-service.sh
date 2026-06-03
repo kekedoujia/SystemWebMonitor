@@ -2,21 +2,19 @@
 # Install SystemWebMonitor as a systemd service.
 #
 # Usage:
-#   bash install-service.sh           # interactive sudo (prompts for password)
+#   bash install-service.sh           # uses sudo to install + start
 #   sudo bash install-service.sh      # already-elevated
 #
-# Environment overrides:
+# Env overrides:
 #   PORT=8765        bind port  (default 8765)
 #   HOST=0.0.0.0     bind host  (default 0.0.0.0)
 #   INTERVAL=1.0     sampling interval seconds (default 1.0)
 #   SERVICE_NAME=system-web-monitor
-
 set -euo pipefail
 
 SERVICE_NAME="${SERVICE_NAME:-system-web-monitor}"
 SERVICE_FILE="/etc/systemd/system/${SERVICE_NAME}.service"
 
-# Absolute path to the directory this script lives in (project root).
 SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 # Pick the user the service should *run as*: if sudoed, that's $SUDO_USER, not root.
@@ -31,13 +29,13 @@ PORT="${PORT:-8765}"
 HOST="${HOST:-0.0.0.0}"
 INTERVAL="${INTERVAL:-1.0}"
 
-# Sanity check.
 if [[ ! -x "${SCRIPT_DIR}/start.sh" ]]; then
-  echo "Error: ${SCRIPT_DIR}/start.sh not found or not executable" >&2
-  exit 1
+  chmod +x "${SCRIPT_DIR}/start.sh" 2>/dev/null || {
+    echo "Error: ${SCRIPT_DIR}/start.sh not executable" >&2
+    exit 1
+  }
 fi
 
-# Detect whether we need to call sudo for the privileged steps.
 SUDO=""
 if [[ "$(id -u)" -ne 0 ]]; then
   if ! command -v sudo >/dev/null 2>&1; then
@@ -62,7 +60,7 @@ trap 'rm -f "$UNIT_TMP"' EXIT
 cat > "$UNIT_TMP" <<EOF
 [Unit]
 Description=System Web Monitor — GPU + CPU dashboard
-Documentation=https://github.com/kekedoujia/SystemWebMonitor
+Documentation=https://github.com/kekedoujia/LLM_Tools
 After=network-online.target
 Wants=network-online.target
 
